@@ -45,9 +45,11 @@
   // --- orbit ring (equatorial scanner)
   const ring = new THREE.Mesh(new THREE.TorusGeometry(R * 1.32, 0.004, 8, 160),
     new THREE.MeshBasicMaterial({ color: CHERRY, transparent: true, opacity: 0.55 }));
-  ring.rotation.x = Math.PI / 2;
+  ring.rotation.x = Math.PI / 2 - 0.42;
+  ring.rotation.y = 0.18;
   scene.add(ring);
   const ring2 = ring.clone(); ring2.scale.setScalar(1.12); ring2.material = ring.material.clone(); ring2.material.opacity = 0.25;
+  ring2.rotation.x = Math.PI / 2 - 0.28; ring2.rotation.y = -0.25;
   scene.add(ring2);
 
   // --- nodes (targets) and attack arcs
