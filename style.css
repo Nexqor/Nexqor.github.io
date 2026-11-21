@@ -195,3 +195,5 @@ nav.open .burger i:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 @keyframes gin{from{opacity:0;transform:translateY(-4px)}}
 @media (max-width:860px){.ghud{grid-template-columns:1fr}.gcard{right:50%;transform:translate(50%,10px);bottom:-20px}.gcard.open{transform:translate(50%,0)}.gpin{font-size:10px;padding:4px 7px}}
 @media (prefers-reduced-motion:reduce){.gfeed li{animation:none}}
+.hero{overflow:clip}
+@supports not (overflow:clip){.hero{overflow:hidden}}
