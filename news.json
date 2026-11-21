@@ -143,7 +143,7 @@
     "play": "llmjacking"
   },
   {
-    "date": "2026",
+    "date": "2026-04-21",
     "title": "One prompt injection, three coding agents leaking secrets",
     "summary": "The 'Comment and Control' technique let a single injection hit Claude Code, Gemini CLI and GitHub Copilot, leaking secrets. No CNA has yet issued a CVE for a coding-agent prompt injection.",
     "take": "Your coding agent reads untrusted text all day: issues, PRs, comments. Keep secrets out of its environment and require approval for outbound calls.",

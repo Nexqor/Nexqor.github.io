@@ -114,7 +114,7 @@
     <title>One prompt injection, three coding agents leaking secrets</title>
     <link>https://venturebeat.com/security/ai-agent-runtime-security-system-card-audit-comment-and-control-2026</link>
     <guid isPermaLink="false">nexqor-2026-1577002721</guid>
-    <pubDate>Thu, 01 Jan 2026 09:00:00 +0000</pubDate>
+    <pubDate>Tue, 21 Apr 2026 09:00:00 +0000</pubDate>
     <category>prompt-injection</category>
     <description>The &apos;Comment and Control&apos; technique let a single injection hit Claude Code, Gemini CLI and GitHub Copilot, leaking secrets. No CNA has yet issued a CVE for a coding-agent prompt injection. Nexqor take: Your coding agent reads untrusted text all day: issues, PRs, comments. Keep secrets out of its environment and require approval for outbound calls. (Source: VentureBeat)</description>
   </item>
