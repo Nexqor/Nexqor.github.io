@@ -160,3 +160,6 @@ nav.open .burger i:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 .reticle.has3d svg > g:first-child{display:none}
 .reticle.has3d svg{position:relative;z-index:1;transform:scale(.62);filter:drop-shadow(0 0 22px rgba(196,18,55,.6))}
 .reticle.has3d .lbl{z-index:2}
+/* globe v3 */
+.reticle.has3d svg{transform:scale(.4);opacity:.92}
+.reticle.has3d{touch-action:pan-y}
