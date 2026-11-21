@@ -100,7 +100,8 @@
  // pulses traveling from hubs to the core
  const pulses=cats.map((c,i)=>{const p=new THREE.Mesh(new THREE.SphereGeometry(.07,8,8),new THREE.MeshBasicMaterial({color:0xff3a5c}));root.add(p);return{p,i,t:Math.random()}});
 
- function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(w<700&&dist<16)dist=17}
+ function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();dist=fitDist()}
+ function fitDist(){const a=stage.clientWidth/stage.clientHeight;return a<1?Math.min(30,10.5/a):13}
  addEventListener('resize',resize);resize();
 
  // interaction
@@ -110,7 +111,7 @@
   if(drag){const dx=e.clientX-px,dy=e.clientY-py;moved+=Math.abs(dx)+Math.abs(dy);rotY+=dx*.005;rotX=Math.max(-1.2,Math.min(1.2,rotX+dy*.005));px=e.clientX;py=e.clientY;tip.style.display='none';return}
   hover(e)});
  stage.addEventListener('pointerup',e=>{drag=false;if(moved<6)click(e)});
- stage.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(7,Math.min(24,dist+e.deltaY*.01))},{passive:false});
+ stage.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(7,Math.min(32,dist+e.deltaY*.01))},{passive:false});
  const ray=new THREE.Raycaster(),v2=new THREE.Vector2(),tip=document.getElementById('tip');
  function pick(e){const r=stage.getBoundingClientRect();v2.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(v2,camera);const h=ray.intersectObjects(pickables)[0];return h&&h.object}
  let hot=null;
@@ -127,7 +128,7 @@
   panel.classList.add('open')}
  document.getElementById('close').onclick=()=>panel.classList.remove('open');
  const spinB=document.getElementById('spin');spinB.onclick=()=>{auto=!auto;spinB.classList.toggle('on',auto)};
- document.getElementById('reset').onclick=()=>{rotX=.45;rotY=0;dist=innerWidth<700?17:13};
+ document.getElementById('reset').onclick=()=>{rotX=.45;rotY=0;dist=fitDist()};
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduce){auto=false;spinB.classList.remove('on')}
 
  (function tick(t){requestAnimationFrame(tick);
