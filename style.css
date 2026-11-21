@@ -151,3 +151,6 @@ nav.open .burger i:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
  .logo{letter-spacing:2px}
 }
 @media (max-width:420px){nav .btn.solid{display:none}}
+.hero .wrap{grid-template-columns:1.45fr .55fr}
+.hero h1{font-size:clamp(44px,6vw,80px)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}}
