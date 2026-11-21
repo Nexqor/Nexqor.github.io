@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D AI Threat Map · Nexqor</title>
+<meta name="description" content="Interactive 3D map of tracked AI security incidents: prompt injection, LLMjacking, MCP poisoning, deepfakes and more, orbiting the AI systems they target.">
+<meta property="og:title" content="3D AI Threat Map · Nexqor"><meta property="og:image" content="https://nexqor.github.io/banner.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@whyNexqor">
+<link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css?v=4">
+<link rel="alternate" type="application/rss+xml" title="Nexqor AI Security News" href="feed.xml">
+<style>
+.map-wrap{position:relative;height:calc(100vh - 64px);min-height:560px;overflow:hidden;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(196,18,55,.16),transparent 70%),var(--bg)}
+#stage{position:absolute;inset:0;cursor:grab;touch-action:none}
+#stage:active{cursor:grabbing}
+.hud{position:absolute;left:24px;top:22px;pointer-events:none;max-width:420px}
+.hud h1{font-size:clamp(30px,4vw,48px);margin:6px 0 8px}
+.hud p{color:var(--muted);margin:0;font-size:15px}
+.legend{position:absolute;left:24px;bottom:22px;display:flex;gap:16px;flex-wrap:wrap;font:13px Consolas,monospace;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.controls{position:absolute;right:24px;bottom:22px;display:flex;gap:8px}
+.controls button{background:rgba(16,5,7,.85);border:1px solid var(--line);color:#fff;border-radius:6px;padding:8px 12px;font:13px Consolas,monospace;cursor:pointer}
+.controls button:hover,.controls button.on{border-color:var(--red)}
+.tip{position:absolute;pointer-events:none;background:rgba(10,3,5,.95);border:1px solid var(--red);border-radius:6px;padding:8px 12px;font:13px Consolas,monospace;color:#fff;max-width:280px;display:none;z-index:3}
+.panel{position:absolute;right:24px;top:22px;width:min(380px,calc(100% - 48px));background:rgba(16,5,7,.94);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:8px;padding:22px;transform:translateX(120%);transition:.3s;z-index:4}
+.panel.open{transform:none}
+.panel h3{margin:8px 0 10px;font-size:20px;line-height:1.3}
+.panel p{color:var(--muted);font-size:15px;margin:0 0 12px}
+.panel .take{color:#fff;border-left:2px solid var(--cyan);padding-left:10px}
+.panel .x{position:absolute;right:12px;top:10px;background:none;border:0;color:var(--muted);font-size:22px;cursor:pointer}
+.panel .meta{font:13px Consolas,monospace;color:var(--cyan)}
+.panel .meta a{color:var(--cyan)}
+.nogl{position:absolute;inset:0;display:none;place-items:center;text-align:center;color:var(--muted);padding:20px}
+@media (max-width:860px){.hud{right:24px}.legend{bottom:70px}.panel{top:auto;bottom:16px;right:16px;left:16px;width:auto;transform:translateY(130%)}.panel.open{transform:none}}
+</style>
+</head><body>
+<div class="map-wrap">
+ <div id="stage"></div>
+ <div class="hud">
+  <div class="tag mono">// LIVE · BUILT FROM TRACKED INCIDENTS</div>
+  <h1>AI THREAT <span>MAP.</span></h1>
+  <p>Every incident we track, orbiting the AI attack class it belongs to. Drag to rotate, scroll to zoom, click a node for details.</p>
+ </div>
+ <div class="legend"><span><i style="background:#ff2d55"></i>critical</span><span><i style="background:#c41237"></i>high</span><span><i style="background:#ff8fa3"></i>medium</span><span><i style="background:#3fe3ff"></i>low</span><span><i style="background:#fff"></i>attack class</span></div>
+ <div class="controls"><button id="spin" class="on">auto-rotate</button><button id="reset">reset view</button></div>
+ <div class="tip" id="tip"></div>
+ <aside class="panel" id="panel"><button class="x" id="close" aria-label="Close">×</button><div id="pbody"></div></aside>
+ <div class="nogl" id="nogl"><div><p>3D view needs WebGL.</p><a class="btn solid" href="news.html">Open the news feed instead</a></div></div>
+</div>
+<script src="layout.js?v=4"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(async function(){
+ const stage=document.getElementById('stage');
+ let renderer;
+ try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true})}catch(e){document.getElementById('nogl').style.display='grid';return}
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2));stage.appendChild(renderer.domElement);
+ const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(50,1,.1,200);
+ const root=new THREE.Group();scene.add(root);
+ let dist=13,rotX=.45,rotY=0,auto=true;
+ const items=await fetch('news.json',{cache:'no-store'}).then(r=>r.json()).catch(()=>[]);
+ const SEVC={critical:0xff2d55,high:0xc41237,medium:0xff8fa3,low:0x3fe3ff};
+ const SEVS={critical:.26,high:.21,medium:.17,low:.14};
+
+ // core: the AI system under attack
+ const core=new THREE.Mesh(new THREE.IcosahedronGeometry(1.25,1),new THREE.MeshBasicMaterial({color:0xc41237,wireframe:true,transparent:true,opacity:.7}));
+ const coreIn=new THREE.Mesh(new THREE.IcosahedronGeometry(.9,0),new THREE.MeshBasicMaterial({color:0x2a0710}));
+ root.add(core,coreIn);
+ const glow=new THREE.Mesh(new THREE.SphereGeometry(1.6,32,32),new THREE.MeshBasicMaterial({color:0xc41237,transparent:true,opacity:.06}));root.add(glow);
+
+ // starfield
+ const sg=new THREE.BufferGeometry(),sp=new Float32Array(1500*3);
+ for(let i=0;i<sp.length;i++)sp[i]=(Math.random()-.5)*120;
+ sg.setAttribute('position',new THREE.BufferAttribute(sp,3));
+ scene.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0x7a1a2c,size:.12,transparent:true,opacity:.6})));
+
+ // categories on a tilted ring
+ const cats=[...new Set(items.map(i=>i.category))];
+ const pickables=[],orbiters=[];
+ const makeLabel=(text,color)=>{const c=document.createElement('canvas');c.width=512;c.height=96;const g=c.getContext('2d');g.font='bold 44px Consolas, monospace';g.fillStyle=color;g.textAlign='center';g.textBaseline='middle';g.shadowColor='#c41237';g.shadowBlur=18;g.fillText(text,256,48);const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));s.scale.set(3.2,.6,1);return s};
+ cats.forEach((cat,ci)=>{
+  const a=ci/cats.length*Math.PI*2, r=5.2, y=Math.sin(a*2)*1.1;
+  const pos=new THREE.Vector3(Math.cos(a)*r,y,Math.sin(a)*r);
+  const hub=new THREE.Mesh(new THREE.OctahedronGeometry(.34),new THREE.MeshBasicMaterial({color:0xffffff}));
+  hub.position.copy(pos);hub.userData={type:'cat',cat,count:items.filter(i=>i.category===cat).length};
+  root.add(hub);pickables.push(hub);
+  const lbl=makeLabel('#'+cat,'#ffffff');lbl.position.copy(pos).add(new THREE.Vector3(0,.75,0));root.add(lbl);
+  // link to core
+  const lg=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),pos]);
+  root.add(new THREE.Line(lg,new THREE.LineDashedMaterial({color:0xc41237,dashSize:.25,gapSize:.18,transparent:true,opacity:.55})).computeLineDistances());
+  // incidents orbiting the hub
+  const inc=items.filter(i=>i.category===cat);
+  inc.forEach((it,k)=>{
+   const m=new THREE.Mesh(new THREE.SphereGeometry(SEVS[it.severity]||.15,18,18),new THREE.MeshBasicMaterial({color:SEVC[it.severity]||0xc41237}));
+   m.userData={type:'inc',it,hub:pos,rad:.95+k*.22,ang:k/inc.length*Math.PI*2,spd:.004+Math.random()*.004,tilt:Math.random()*.8};
+   root.add(m);pickables.push(m);orbiters.push(m);
+  });
+  const orb=new THREE.Mesh(new THREE.TorusGeometry(1.05+Math.max(0,inc.length-1)*.11,.008,6,90),new THREE.MeshBasicMaterial({color:0xc41237,transparent:true,opacity:.35}));
+  orb.position.copy(pos);orb.rotation.x=Math.PI/2;root.add(orb);
+ });
+
+ // pulses traveling from hubs to the core
+ const pulses=cats.map((c,i)=>{const p=new THREE.Mesh(new THREE.SphereGeometry(.07,8,8),new THREE.MeshBasicMaterial({color:0xff3a5c}));root.add(p);return{p,i,t:Math.random()}});
+
+ function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(w<700&&dist<16)dist=17}
+ addEventListener('resize',resize);resize();
+
+ // interaction
+ let drag=false,px=0,py=0,moved=0;
+ stage.addEventListener('pointerdown',e=>{drag=true;moved=0;px=e.clientX;py=e.clientY;stage.setPointerCapture(e.pointerId)});
+ stage.addEventListener('pointermove',e=>{
+  if(drag){const dx=e.clientX-px,dy=e.clientY-py;moved+=Math.abs(dx)+Math.abs(dy);rotY+=dx*.005;rotX=Math.max(-1.2,Math.min(1.2,rotX+dy*.005));px=e.clientX;py=e.clientY;tip.style.display='none';return}
+  hover(e)});
+ stage.addEventListener('pointerup',e=>{drag=false;if(moved<6)click(e)});
+ stage.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(7,Math.min(24,dist+e.deltaY*.01))},{passive:false});
+ const ray=new THREE.Raycaster(),v2=new THREE.Vector2(),tip=document.getElementById('tip');
+ function pick(e){const r=stage.getBoundingClientRect();v2.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(v2,camera);const h=ray.intersectObjects(pickables)[0];return h&&h.object}
+ let hot=null;
+ function hover(e){const o=pick(e);if(hot&&hot!==o)hot.scale.setScalar(1);hot=o;
+  if(!o){tip.style.display='none';stage.style.cursor='grab';return}
+  o.scale.setScalar(1.5);stage.style.cursor='pointer';const r=stage.getBoundingClientRect();
+  tip.innerHTML=o.userData.type==='cat'?`<b>#${o.userData.cat}</b><br>${o.userData.count} incident(s)`:`<b style="color:#ff8fa3">${o.userData.it.severity.toUpperCase()}</b> · ${o.userData.it.date}<br>${o.userData.it.title}`;
+  tip.style.display='block';tip.style.left=Math.min(e.clientX-r.left+14,r.width-300)+'px';tip.style.top=(e.clientY-r.top+14)+'px'}
+ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+ const panel=document.getElementById('panel'),pbody=document.getElementById('pbody');
+ function click(e){const o=pick(e);if(!o)return;
+  if(o.userData.type==='cat'){const list=items.filter(i=>i.category===o.userData.cat);pbody.innerHTML=`<div class="tag mono">// ATTACK CLASS</div><h3>#${esc(o.userData.cat)}</h3><p>${list.length} tracked incident(s):</p>`+list.map(i=>`<p style="margin:0 0 8px"><span class="sev ${esc(i.severity)}" style="font:11px Consolas,monospace">${esc(i.severity.toUpperCase())}</span> ${esc(i.title)}</p>`).join('')+`<a class="btn" href="news.html" style="margin-top:8px">All news →</a>`}
+  else{const i=o.userData.it;pbody.innerHTML=`<div class="tag mono">// ${esc(i.date)} · #${esc(i.category)}</div><h3>${esc(i.title)}</h3><p>${esc(i.summary)}</p><p class="take"><b class="mono" style="color:var(--cyan)">Nexqor take:</b> ${esc(i.take)}</p><div class="meta">source: <a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.source)}</a>${i.play?` · <a href="playbook.html#${esc(i.play)}">playbook →</a>`:''}</div>`}
+  panel.classList.add('open')}
+ document.getElementById('close').onclick=()=>panel.classList.remove('open');
+ const spinB=document.getElementById('spin');spinB.onclick=()=>{auto=!auto;spinB.classList.toggle('on',auto)};
+ document.getElementById('reset').onclick=()=>{rotX=.45;rotY=0;dist=innerWidth<700?17:13};
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduce){auto=false;spinB.classList.remove('on')}
+
+ (function tick(t){requestAnimationFrame(tick);
+  if(auto&&!drag)rotY+=.0016;
+  root.rotation.x+=(rotX*.4-root.rotation.x)*.08;root.rotation.y+=(rotY-root.rotation.y)*.08;
+  camera.position.set(0,dist*.32,dist);camera.lookAt(0,0,0);
+  core.rotation.y+=.004;core.rotation.x+=.002;
+  if(!reduce){orbiters.forEach(m=>{const u=m.userData;u.ang+=u.spd;m.position.set(u.hub.x+Math.cos(u.ang)*u.rad,u.hub.y+Math.sin(u.ang)*u.rad*u.tilt*.5,u.hub.z+Math.sin(u.ang)*u.rad)});
+   pulses.forEach(q=>{q.t+=.008;if(q.t>1)q.t=0;const a=q.i/cats.length*Math.PI*2,r=5.2*(1-q.t),y=Math.sin(a*2)*1.1*(1-q.t);q.p.position.set(Math.cos(a)*r,y,Math.sin(a)*r)});
+   glow.scale.setScalar(1+Math.sin((t||0)/600)*.05)}
+  else orbiters.forEach(m=>{const u=m.userData;m.position.set(u.hub.x+Math.cos(u.ang)*u.rad,u.hub.y,u.hub.z+Math.sin(u.ang)*u.rad)});
+  renderer.render(scene,camera)})();
+})();
+</script>
+</body></html>

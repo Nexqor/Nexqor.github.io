@@ -4,7 +4,7 @@
 <title>Prompt Injection Scanner · Nexqor</title>
 <meta name="description" content="Free in-browser prompt injection scanner. Paste a web page, email or document and see hidden instructions aimed at AI agents.">
 <meta property="og:image" content="https://nexqor.github.io/banner.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css?v=3">
+<link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css?v=4">
 <link rel="alternate" type="application/rss+xml" title="Nexqor AI Security News" href="feed.xml">
 <style>
 textarea{width:100%;min-height:240px;background:#000;border:1px solid var(--line);border-radius:6px;color:#fff;padding:16px;font:14px/1.6 Consolas,monospace;resize:vertical}
@@ -32,7 +32,7 @@ button.btn.solid{background:var(--red)}
  <div id="out"></div>
  <p class="mono" style="color:var(--muted);font-size:14px;margin-top:24px">Heuristic first filter, not a guarantee. Attackers paraphrase and encode. Pair it with least-privilege agents. See the <a href="playbook.html#indirect" style="color:var(--red)">playbook</a>.</p>
 </div></section>
-<script src="layout.js?v=3"></script>
+<script src="layout.js?v=4"></script>
 <script>
 const RULES=[
  ['exfil-url','critical','Exfiltration via URL / image',/!\[[^\]]*\]\(\s*https?:\/\/[^)\s]*[?&][^)\s]*=\s*[{<$]/gi],

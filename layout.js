@@ -2,7 +2,7 @@
 (function () {
   const page = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
   const links = [
-    ['news', 'News'], ['playbook', 'Playbook'], ['checklist', 'Checklist'], ['tools', 'Scanner'], ['resources', 'Resources'], ['glossary', 'Glossary']
+    ['news', 'News'], ['threatmap', '3D Map'], ['playbook', 'Playbook'], ['checklist', 'Checklist'], ['tools', 'Scanner'], ['resources', 'Resources'], ['glossary', 'Glossary']
   ];
   const nav = document.createElement('nav');
   nav.innerHTML = `<div class="wrap">
