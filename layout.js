@@ -7,9 +7,13 @@
   const nav = document.createElement('nav');
   nav.innerHTML = `<div class="wrap">
     <a class="logo" href="index.html"><img src="avatar.jpg" alt="">NEXQOR</a>
-    <ul>${links.map(([h, t]) => `<li><a href="${h}.html"${page === h ? ' class="on"' : ''}>${t}</a></li>`).join('')}</ul>
-    <a class="btn solid" href="https://x.com/whyNexqor" target="_blank" rel="noopener">Follow on 𝕏</a></div>`;
+    <ul id="nx-menu">${links.map(([h, t]) => `<li><a href="${h}.html"${page === h ? ' class="on"' : ''}>${t}</a></li>`).join('')}</ul>
+    <div class="nav-r"><a class="btn solid" href="https://x.com/whyNexqor" target="_blank" rel="noopener">Follow on 𝕏</a>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nx-menu"><i></i><i></i><i></i></button></div></div>`;
   document.body.prepend(nav);
+  const burger = nav.querySelector('.burger');
+  burger.onclick = () => { const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); };
+  nav.querySelectorAll('#nx-menu a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
 
   const f = document.createElement('footer');
   f.innerHTML = `<div class="wrap">

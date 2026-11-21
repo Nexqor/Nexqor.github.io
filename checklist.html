@@ -38,7 +38,7 @@ button.btn{background:transparent;cursor:pointer;font:inherit;font-weight:600;wi
 <section style="padding-top:50px"><div class="wrap ck-wrap">
  <div id="groups"></div>
  <aside class="score">
-  <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#2a1010" stroke-width="10"/><circle id="arc" cx="60" cy="60" r="52" fill="none" stroke="#ff2f2f" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 400" transform="rotate(-90 60 60)" style="transition:.4s"/><text id="pct" class="v" x="60" y="72" text-anchor="middle">0</text></svg>
+  <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#2a0a12" stroke-width="10"/><circle id="arc" cx="60" cy="60" r="52" fill="none" stroke="#c41237" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 400" transform="rotate(-90 60 60)" style="transition:.4s"/><text id="pct" class="v" x="60" y="72" text-anchor="middle">0</text></svg>
   <div class="grade mono" id="grade">EXPOSED</div>
   <p id="hint">Start with the CRITICAL items. They map to the attacks we see most.</p>
   <button class="btn" onclick="window.print()">Print / save as PDF</button>
@@ -87,7 +87,7 @@ function upd(){let got=0;document.querySelectorAll('.ck').forEach(l=>{const c=l.
  try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}
  const p=Math.round(got/total*100);document.getElementById('pct').textContent=p;
  document.getElementById('arc').setAttribute('stroke-dasharray',(p/100*326.7)+' 400');
- const [g,col,h]=p>=85?['HARDENED','#7dff9a','Strong posture. Keep red teaming every release.']:p>=60?['DEFENDED','#3fe3ff','Good base. Close the remaining CRITICAL gaps.']:p>=30?['AT RISK','#ffb020','Several attack paths are open. Prioritize CRITICAL items.']:['EXPOSED','#ff2f2f','Start with the CRITICAL items. They map to the attacks we see most.'];
+ const [g,col,h]=p>=85?['HARDENED','#7dff9a','Strong posture. Keep red teaming every release.']:p>=60?['DEFENDED','#3fe3ff','Good base. Close the remaining CRITICAL gaps.']:p>=30?['AT RISK','#ffb020','Several attack paths are open. Prioritize CRITICAL items.']:['EXPOSED','#c41237','Start with the CRITICAL items. They map to the attacks we see most.'];
  const ge=document.getElementById('grade');ge.textContent=g;ge.style.color=col;document.getElementById('hint').textContent=h;
  document.getElementById('share').href='https://x.com/intent/tweet?text='+encodeURIComponent(`My AI agent security score: ${p}/100 (${g}). Check yours with the free @whyNexqor checklist:`)+'&url='+encodeURIComponent('https://nexqor.github.io/checklist.html');}
 document.getElementById('groups').addEventListener('change',upd);
