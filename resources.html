@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Security Resources · Nexqor</title>
+<meta name="description" content="Curated AI security frameworks, red team tools, guardrails, benchmarks, papers and practice labs.">
+<meta property="og:image" content="banner.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css">
+</head><body>
+<header class="page-hero"><div class="wrap">
+ <div class="tag mono">// AWESOME AI SECURITY</div>
+ <h1>THE AI SECURITY <span>TOOLKIT.</span></h1>
+ <p class="lead">Frameworks, tools, papers and labs worth your time. Mirrors <a href="https://github.com/Nexqor/awesome-ai-security" style="color:var(--red)">awesome-ai-security</a> on GitHub, where you can suggest additions.</p>
+</div></header>
+<section style="padding-top:40px"><div class="wrap res">
+ <input class="search" id="q" placeholder="Filter: e.g. injection, red team, benchmark...">
+ <div id="list"></div>
+</div></section>
+<script src="layout.js"></script>
+<script>
+const R={
+ 'Frameworks & Standards':[
+  ['OWASP Top 10 for LLM & GenAI','https://genai.owasp.org/','The reference list of LLM application risks.'],
+  ['MITRE ATLAS','https://atlas.mitre.org/','ATT&CK-style tactics and techniques against AI systems.'],
+  ['NIST AI Risk Management Framework','https://www.nist.gov/itl/ai-risk-management-framework','Govern, map, measure and manage AI risk.'],
+  ['NIST AI 100-2 Adversarial ML Taxonomy','https://csrc.nist.gov/pubs/ai/100/2/e2023/final','Shared vocabulary for attacks on ML.'],
+  ['Google SAIF','https://saif.google/','Secure AI Framework from Google.']],
+ 'Red Team / Offensive':[
+  ['garak','https://github.com/NVIDIA/garak','LLM vulnerability scanner.'],
+  ['PyRIT','https://github.com/Azure/PyRIT','Microsoft red teaming toolkit for generative AI.'],
+  ['promptfoo','https://github.com/promptfoo/promptfoo','Test and red team LLM apps in CI.'],
+  ['Counterfit','https://github.com/Azure/counterfit','Automation for ML model security assessments.'],
+  ['Adversarial Robustness Toolbox','https://github.com/Trusted-AI/adversarial-robustness-toolbox','Evasion, poisoning, extraction attacks and defenses.']],
+ 'Guardrails / Defensive':[
+  ['LLM Guard','https://github.com/protectai/llm-guard','Scanners for injection, PII and secrets.'],
+  ['NeMo Guardrails','https://github.com/NVIDIA/NeMo-Guardrails','Programmable rails for LLM apps.'],
+  ['Purple Llama / Llama Guard','https://github.com/meta-llama/PurpleLlama','Open safety classifiers and tools.'],
+  ['Rebuff','https://github.com/protectai/rebuff','Multi-layer prompt injection detector.'],
+  ['nexqor-tools','https://github.com/Nexqor/nexqor-tools','Our prompt injection scanner (CLI + web).']],
+ 'Model Supply Chain':[
+  ['ModelScan','https://github.com/protectai/modelscan','Scan model files for unsafe code.'],
+  ['Safetensors','https://github.com/huggingface/safetensors','Model format that cannot execute code on load.']],
+ 'Benchmarks':[
+  ['HarmBench','https://github.com/centerforaisafety/HarmBench','Standard evaluation for red teaming and refusals.'],
+  ['JailbreakBench','https://github.com/JailbreakBench/jailbreakbench','Open jailbreak robustness benchmark.'],
+  ['AgentDojo','https://github.com/ethz-spylab/agentdojo','Prompt injection attacks and defenses for agents.']],
+ 'Key Papers':[
+  ['Indirect Prompt Injection (Greshake et al., 2023)','https://arxiv.org/abs/2302.12173','Hidden instructions in data hijack LLM apps.'],
+  ['Universal Adversarial Attacks on Aligned LLMs (Zou et al., 2023)','https://arxiv.org/abs/2307.15043','Optimized suffixes that transfer across models.'],
+  ['Extracting Training Data from LLMs (Carlini et al., 2021)','https://arxiv.org/abs/2012.07805','Models leak memorized training data.'],
+  ['Poisoning Web-Scale Datasets is Practical (2023)','https://arxiv.org/abs/2302.10149','Cheap real-world dataset poisoning.'],
+  ['Sleeper Agents (2024)','https://arxiv.org/abs/2401.05566','Backdoors that survive safety training.'],
+  ['Ignore Previous Prompt (Perez & Ribeiro, 2022)','https://arxiv.org/abs/2211.09527','Early study of goal hijacking.']],
+ 'Labs & Reading':[
+  ['Gandalf by Lakera','https://gandalf.lakera.ai/','Trick an LLM into revealing a password.'],
+  ['Simon Willison: Prompt injection series','https://simonwillison.net/series/prompt-injection/','Running commentary on prompt injection.'],
+  ['Embrace The Red','https://embracethered.com/blog/','Hands-on AI assistant exfiltration research.']]
+};
+function draw(q=''){q=q.toLowerCase();document.getElementById('list').innerHTML=Object.entries(R).map(([k,v])=>{const f=v.filter(i=>(i.join(' ')+' '+k).toLowerCase().includes(q));return f.length?`<h3>${k}</h3><ul>${f.map(i=>`<li><a href="${i[1]}" target="_blank" rel="noopener">${i[0]} ↗</a><span>${i[2]}</span></li>`).join('')}</ul>`:''}).join('')||'<p style="color:var(--muted)">Nothing found.</p>'}
+draw();document.getElementById('q').oninput=e=>draw(e.target.value);
+</script>
+</body></html>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Security News · Nexqor</title>
+<meta name="description" content="Latest AI security incidents: prompt injection, LLMjacking, AI breaches and patches, with a Nexqor take on each.">
+<meta property="og:image" content="banner.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@whyNexqor">
+<link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css">
+</head><body>
+<header class="page-hero"><div class="wrap">
+ <div class="tag mono">// LIVE FEED · AI THREAT INTEL</div>
+ <h1>AI SECURITY <span>NEWS.</span></h1>
+ <p class="lead">Every AI hack, leak and patch that matters, sourced, rated, and with one line on what to do about it.</p>
+</div></header>
+<section><div class="wrap">
+ <div class="filters" id="filters"></div>
+ <div class="news" id="news"></div>
+ <p class="mono" style="color:var(--muted);margin-top:30px;font-size:14px">Scope of ongoing incidents can change. Always check the linked source for the latest update.</p>
+</div></section>
+<script src="layout.js"></script>
+<script>nxNews(document.getElementById('news'),{filters:document.getElementById('filters')})</script>
+</body></html>

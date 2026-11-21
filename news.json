@@ -1,0 +1,90 @@
+[
+  {
+    "date": "2026-11-16",
+    "title": "AI agents caught hunting AI provider keys across exposed apps",
+    "summary": "Amazon reported suspected automated agents scanning for AI provider API keys in exposed LLM gateways and AI app builders, including LiteLLM, Dify, Langflow, Open WebUI and Ollama. Reported theft is not yet verified.",
+    "take": "Attackers now use AI to find your AI. If your gateway or admin UI is reachable from the internet, assume it is already being scanned.",
+    "category": "llmjacking",
+    "severity": "high",
+    "source": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/amazon-uncovers-ai-agent-campaign.html",
+    "play": "llmjacking"
+  },
+  {
+    "date": "2026-11-09",
+    "title": "Fireworks AI breach widens: model weights, datasets and Notion AI chats exposed",
+    "summary": "An update widened an October incident: beyond API keys and tokens, some customers had partial model weights and datasets accessed, plus Notion AI chat transcripts. The company attributes it to a financially motivated LLMjacking group and brought in Unit 42.",
+    "take": "AI platforms concentrate keys, data and weights in one place. Treat your AI vendor as critical third-party risk, and rotate keys now if you use it.",
+    "category": "breach",
+    "severity": "critical",
+    "source": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/fireworks-ai-breach-widens-to-expose.html",
+    "play": "llmjacking"
+  },
+  {
+    "date": "2026-11-08",
+    "title": "SGLang inference engine RCE exploited on a NEAR AI server",
+    "summary": "An attacker used a remote code execution flaw in the SGLang inference engine to run code on a NEAR AI inference server. The specific flaw has not been disclosed.",
+    "take": "Inference servers are internet-facing software with real CVEs. Patch them like web servers and keep them off the public internet.",
+    "category": "supply-chain",
+    "severity": "critical",
+    "source": "CSA CISO Daily Briefing",
+    "url": "https://labs.cloudsecurityalliance.org/research/ciso-daily-briefing-20261111/",
+    "play": "supply-chain"
+  },
+  {
+    "date": "2026",
+    "title": "LiteLLM key-regeneration flaw used to grab proxy admin credentials",
+    "summary": "Threat intelligence reporting describes LLMjacking clusters exploiting a user ID rebind flaw in LiteLLM's /key/regenerate endpoint (CVE-2026-40217) to escalate to PROXY_ADMIN master credentials.",
+    "take": "If you run LiteLLM, check your version today. One gateway bug turns into every model and every key you route through it.",
+    "category": "llmjacking",
+    "severity": "high",
+    "source": "The Hacker News",
+    "url": "https://thehackernews.com/2026/11/amazon-uncovers-ai-agent-campaign.html",
+    "play": "llmjacking"
+  },
+  {
+    "date": "2026",
+    "title": "One prompt injection, three coding agents leaking secrets",
+    "summary": "The 'Comment and Control' technique let a single injection hit Claude Code, Gemini CLI and GitHub Copilot, leaking secrets. No CNA has yet issued a CVE for a coding-agent prompt injection.",
+    "take": "Your coding agent reads untrusted text all day: issues, PRs, comments. Keep secrets out of its environment and require approval for outbound calls.",
+    "category": "prompt-injection",
+    "severity": "critical",
+    "source": "VentureBeat",
+    "url": "https://venturebeat.com/security/ai-agent-runtime-security-system-card-audit-comment-and-control-2026",
+    "play": "indirect"
+  },
+  {
+    "date": "2026",
+    "title": "Study: no prompt-injection scenario consistently blocked on leading web agents",
+    "summary": "Researchers tested web agents built on frontier models and found that not a single attack scenario was consistently blocked across the systems tested, framing prompt injection as a system-level security problem.",
+    "take": "Model-level defenses are not enough. Design agents so a successful injection can't reach anything valuable.",
+    "category": "prompt-injection",
+    "severity": "high",
+    "source": "CSO Online",
+    "url": "https://www.csoonline.com/article/4184455/prompt-injection-breaks-todays-ai-agents-study-warns.html",
+    "play": "indirect"
+  },
+  {
+    "date": "2026-06",
+    "title": "OWASP researcher: prompt injection remains an unsolved architectural problem",
+    "summary": "At Infosecurity Europe 2026, an OWASP contributor argued that injection risk grows as agents gain tool access, and urged defenders to limit what an injected agent can do rather than rely on prevention alone.",
+    "take": "Exactly our rule: limit the blast radius, not just the input.",
+    "category": "prompt-injection",
+    "severity": "medium",
+    "source": "Infosecurity Magazine",
+    "url": "https://www.infosecurity-magazine.com/news/infosec-europe-prompt-injection/",
+    "play": "direct"
+  },
+  {
+    "date": "2026-05-07",
+    "title": "Microsoft: when prompts become shells in AI agent frameworks",
+    "summary": "Microsoft described a path in Semantic Kernel where prompt injection could lead to host-level remote code execution, patched by removing the exposed tool.",
+    "take": "Every tool you give an agent is an attack path. Fewer tools, narrower arguments, sandboxed execution.",
+    "category": "agents",
+    "severity": "critical",
+    "source": "Microsoft Security Blog",
+    "url": "https://www.microsoft.com/en-us/security/blog/2026/05/07/prompts-become-shells-rce-vulnerabilities-ai-agent-frameworks/",
+    "play": "agency"
+  }
+]

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Security Glossary · Nexqor</title>
+<meta name="description" content="Plain-language glossary of AI security terms: prompt injection, LLMjacking, RAG poisoning, excessive agency and more.">
+<meta property="og:image" content="banner.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css">
+</head><body>
+<header class="page-hero"><div class="wrap">
+ <div class="tag mono">// SPEAK THE LANGUAGE</div>
+ <h1>AI SECURITY <span>GLOSSARY.</span></h1>
+ <p class="lead">The terms behind every headline, in one sentence each.</p>
+</div></header>
+<section style="padding-top:40px"><div class="wrap">
+ <input class="search" id="q" placeholder="Search a term...">
+ <dl class="gloss" id="g"></dl>
+</div></section>
+<script src="layout.js"></script>
+<script>
+const G=[
+['Prompt injection','Text that makes an AI model follow the attacker\'s instructions instead of the developer\'s.','direct'],
+['Indirect prompt injection','Prompt injection hidden in content the AI reads (web pages, emails, documents) rather than typed by the user.','indirect'],
+['Jailbreak','A prompt that gets a model to ignore its safety training and produce content it should refuse.','jailbreak'],
+['System prompt','The hidden instructions a developer gives the model. Assume it will leak.','leakage'],
+['RAG','Retrieval-Augmented Generation: the app fetches documents and pastes them into the model\'s context. Every fetched document is attacker-reachable input.','leakage'],
+['AI agent','A model that can take actions through tools (shell, browser, email, APIs), not just answer.','agency'],
+['Excessive agency','Giving an agent more permissions or tools than its task needs.','agency'],
+['Tool / function calling','The mechanism that lets a model trigger real actions. Each tool is an attack path.','agency'],
+['MCP','Model Context Protocol: a standard way to connect agents to tools and data. Untrusted MCP servers are a supply chain risk.','supply-chain'],
+['Data poisoning','Corrupting training or retrieval data to plant backdoors or false facts.','poisoning'],
+['Backdoor / sleeper agent','Hidden model behavior that only activates on a specific trigger.','poisoning'],
+['Model supply chain','Everything you download to run AI: weights, packages, inference servers. Any of it can carry malicious code.','supply-chain'],
+['Pickle','Python serialization format used by many model files. Loading an untrusted pickle can execute code.','supply-chain'],
+['Safetensors','A model file format that stores only tensors and cannot execute code.','supply-chain'],
+['LLMjacking','Stealing access to someone\'s LLM accounts or keys and reselling it. The victim pays the bill.','llmjacking'],
+['AI gateway / LLM proxy','A service (e.g. LiteLLM) that routes requests to many models with shared keys. A single point of failure.','llmjacking'],
+['Exfiltration','Getting stolen data out, for example through a URL the model renders as an image.','leakage'],
+['Guardrails','Filters and rules around a model that check inputs and outputs. Helpful, never sufficient alone.','direct'],
+['Red teaming','Attacking your own AI system before real attackers do.','jailbreak'],
+['Human-in-the-loop','Requiring a person to approve risky agent actions before they run.','agency'],
+['Least privilege','Give every user, agent and key only the access it needs, and nothing more.','agency'],
+['OWASP LLM Top 10','The standard list of the ten most critical risks in LLM applications.',''],
+['MITRE ATLAS','A knowledge base of real tactics and techniques used against AI systems.','']
+].sort((a,b)=>a[0].localeCompare(b[0]));
+function draw(q=''){q=q.toLowerCase();document.getElementById('g').innerHTML=G.filter(x=>(x[0]+x[1]).toLowerCase().includes(q)).map(x=>`<div><dt>${x[0]}</dt><dd>${x[1]}${x[2]?` <a href="playbook.html#${x[2]}" style="color:var(--cyan);font-size:14px">play →</a>`:''}</dd></div>`).join('')}
+draw();document.getElementById('q').oninput=e=>draw(e.target.value);
+</script>
+</body></html>
