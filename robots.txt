@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nexqor.github.io/sitemap.xml

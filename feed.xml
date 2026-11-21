@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Nexqor · AI Security News</title>
+  <link>https://nexqor.github.io/news.html</link>
+  <atom:link href="https://nexqor.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>AI hacks, leaks and patches, sourced and rated, with a Nexqor take on each.</description>
+  <language>en</language>
+  <item>
+    <title>GAO: AI lets attackers scale phishing, deepfakes and multi-stage attacks</title>
+    <link>https://www.gao.gov/assets/gao-27-108458.pdf</link>
+    <guid isPermaLink="false">nexqor-2026-11-20-170760053</guid>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+    <category>policy</category>
+    <description>A U.S. Government Accountability Office technology assessment says AI helps attackers scale phishing and deepfakes, and flags agentic AI that can run several attack stages with little human input. It also describes defenders using machine learning to spot phishing and isolate ransomware early. Nexqor take: Official confirmation of what SOCs already see: the cost of a convincing attack is collapsing. Budget for detection that scales the same way. (Source: GAO)</description>
+  </item>
+  <item>
+    <title>Deepfake attacks up 165% in 2026, mostly aimed at finance</title>
+    <link>https://securitybrief.asia/story/deepfake-identity-fraud-surges-as-criminals-go-professional</link>
+    <guid isPermaLink="false">nexqor-2026-11-20-1009836832</guid>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+    <category>deepfake</category>
+    <description>Entrust&apos;s identity fraud report, covered on November 20, says deepfake attacks rose 165% year over year in 2026, with financial services accounting for 94% of detected deepfakes. Nexqor take: Voice and video are no longer proof of identity. Move payment approvals to out-of-band checks that a deepfake can&apos;t pass. (Source: SecurityBrief Asia)</description>
+  </item>
+  <item>
+    <title>Coinbase blocks $4.7M sent to a deepfake Elon Musk livestream</title>
+    <link>https://www.scworld.com/brief/coinbase-blocks-4-7-million-in-cryptocurrency-transfers-linked-to-deepfake-scam</link>
+    <guid isPermaLink="false">nexqor-2026-11-19-416617649</guid>
+    <pubDate>Thu, 19 Nov 2026 09:00:00 +0000</pubDate>
+    <category>deepfake</category>
+    <description>Coinbase blocked $4.7 million in cryptocurrency transfers linked to an AI-generated Elon Musk deepfake livestream. Its fraud systems stopped 91% of the attempted transfers. Nexqor take: Deepfake scams now run live, at scale. Platform-side fraud detection caught most of it, but 9% still got through. (Source: SC Media)</description>
+  </item>
+  <item>
+    <title>INTERPOL launches deepfake scam awareness campaign</title>
+    <link>https://www.scworld.com/perspective/interpol-launches-deepfake-scam-awareness-campaign-as-ai-impersonation-risks-grow</link>
+    <guid isPermaLink="false">nexqor-2026-11-19-680878520</guid>
+    <pubDate>Thu, 19 Nov 2026 09:00:00 +0000</pubDate>
+    <category>deepfake</category>
+    <description>INTERPOL started a public campaign on AI-generated scams, using short AI-made videos to show how deepfakes deceive people. Nexqor take: Use it in your own awareness training: showing people a deepfake beats describing one. (Source: SC Media)</description>
+  </item>
+  <item>
+    <title>New AI phishing kit writes a unique lure for every victim</title>
+    <link>https://scworld.com/brief/new-ai-powered-phishing-kit-automates-malicious-email-campaigns</link>
+    <guid isPermaLink="false">nexqor-2026-11-18-1595018626</guid>
+    <pubDate>Wed, 18 Nov 2026 09:00:00 +0000</pubDate>
+    <category>phishing</category>
+    <description>A phishing kit dubbed TheMailer uses large language models to write a unique email for each recipient and reportedly rewrites lures until they pass spam filters. Nexqor take: Signature and template matching won&apos;t catch one-of-a-kind emails. Lean on sender authentication, link analysis and phishing-resistant MFA. (Source: SC Media)</description>
+  </item>
+  <item>
+    <title>Copilot in Visual Studio: filename trick leads to agent RCE</title>
+    <link>https://adversa.ai/blog/top-ai-coding-agent-security-resources-november-2026/</link>
+    <guid isPermaLink="false">nexqor-2026-11-1513777034</guid>
+    <pubDate>Sun, 01 Nov 2026 09:00:00 +0000</pubDate>
+    <category>agents</category>
+    <description>A reported flaw let Microsoft&apos;s Copilot agent in Visual Studio and SSMS reach its own MCP configuration file through a filename trick, enabling command execution. Microsoft rated it Important and patched it. Nexqor take: An agent that can edit its own config can grant itself new powers. Config files must be outside the agent&apos;s write scope. (Source: Adversa AI)</description>
+  </item>
+  <item>
+    <title>Microsoft: fully autonomous ransomware has hit real organizations</title>
+    <link>https://www.techtimes.com/articles/328467/20261002/microsoft-2026-security-report-autonomous-ransomware-has-hacked-real-organizations.htm</link>
+    <guid isPermaLink="false">nexqor-2026-10-1137605338</guid>
+    <pubDate>Thu, 01 Oct 2026 09:00:00 +0000</pubDate>
+    <category>ransomware</category>
+    <description>Microsoft&apos;s Digital Defense Report 2026 describes JADEPUFFER, a ransomware attack it calls fully autonomous, which hit real organizations in July 2026. It also reports phishing rising from 7% to 23% of intrusions. Nexqor take: Attack speed is now machine speed. Containment has to be automated too: isolate first, investigate second. (Source: Tech Times)</description>
+  </item>
+  <item>
+    <title>MCP tool poisoning: hidden instructions in tool descriptions exfiltrate data</title>
+    <link>https://labs.cloudsecurityalliance.org/research/csa-research-note-mcp-tool-description-poisoning-20260711-cs/</link>
+    <guid isPermaLink="false">nexqor-2026-07-1407741169</guid>
+    <pubDate>Wed, 01 Jul 2026 09:00:00 +0000</pubDate>
+    <category>mcp</category>
+    <description>Cloud Security Alliance research notes describe how poisoned MCP tool descriptions can steer agents into exfiltrating data, and how IDEs that auto-load workspace MCP configs widen the attack surface. Nexqor take: Approving an MCP server by name is not enough. Review and pin what its tools actually say, and re-check on every update. (Source: Cloud Security Alliance)</description>
+  </item>
+  <item>
+    <title>OX Security: systemic command-execution risk in MCP&apos;s STDIO transport</title>
+    <link>https://www.ox.security/blog/the-mother-of-all-ai-supply-chains-critical-systemic-vulnerability-at-the-core-of-the-mcp/</link>
+    <guid isPermaLink="false">nexqor-2026-8081212</guid>
+    <pubDate>Thu, 01 Jan 2026 09:00:00 +0000</pubDate>
+    <category>mcp</category>
+    <description>OX Security argues that arbitrary command execution over the STDIO transport is default behavior across official MCP SDKs, calling it a systemic AI supply chain risk. Nexqor take: Every local MCP server you add is code you run. Treat MCP servers like dependencies: vet, pin, sandbox. (Source: OX Security)</description>
+  </item>
+  <item>
+    <title>AI agents caught hunting AI provider keys across exposed apps</title>
+    <link>https://thehackernews.com/2026/11/amazon-uncovers-ai-agent-campaign.html</link>
+    <guid isPermaLink="false">nexqor-2026-11-16-789678217</guid>
+    <pubDate>Mon, 16 Nov 2026 09:00:00 +0000</pubDate>
+    <category>llmjacking</category>
+    <description>Amazon reported suspected automated agents scanning for AI provider API keys in exposed LLM gateways and AI app builders, including LiteLLM, Dify, Langflow, Open WebUI and Ollama. Reported theft is not yet verified. Nexqor take: Attackers now use AI to find your AI. If your gateway or admin UI is reachable from the internet, assume it is already being scanned. (Source: The Hacker News)</description>
+  </item>
+  <item>
+    <title>Fireworks AI breach widens: model weights, datasets and Notion AI chats exposed</title>
+    <link>https://thehackernews.com/2026/11/fireworks-ai-breach-widens-to-expose.html</link>
+    <guid isPermaLink="false">nexqor-2026-11-09-1327743227</guid>
+    <pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate>
+    <category>breach</category>
+    <description>An update widened an October incident: beyond API keys and tokens, some customers had partial model weights and datasets accessed, plus Notion AI chat transcripts. The company attributes it to a financially motivated LLMjacking group and brought in Unit 42. Nexqor take: AI platforms concentrate keys, data and weights in one place. Treat your AI vendor as critical third-party risk, and rotate keys now if you use it. (Source: The Hacker News)</description>
+  </item>
+  <item>
+    <title>SGLang inference engine RCE exploited on a NEAR AI server</title>
+    <link>https://labs.cloudsecurityalliance.org/research/ciso-daily-briefing-20261111/</link>
+    <guid isPermaLink="false">nexqor-2026-11-08-1358031002</guid>
+    <pubDate>Sun, 08 Nov 2026 09:00:00 +0000</pubDate>
+    <category>supply-chain</category>
+    <description>An attacker used a remote code execution flaw in the SGLang inference engine to run code on a NEAR AI inference server. The specific flaw has not been disclosed. Nexqor take: Inference servers are internet-facing software with real CVEs. Patch them like web servers and keep them off the public internet. (Source: CSA CISO Daily Briefing)</description>
+  </item>
+  <item>
+    <title>LiteLLM key-regeneration flaw used to grab proxy admin credentials</title>
+    <link>https://thehackernews.com/2026/11/amazon-uncovers-ai-agent-campaign.html</link>
+    <guid isPermaLink="false">nexqor-2026-211340629</guid>
+    <pubDate>Thu, 01 Jan 2026 09:00:00 +0000</pubDate>
+    <category>llmjacking</category>
+    <description>Threat intelligence reporting describes LLMjacking clusters exploiting a user ID rebind flaw in LiteLLM&apos;s /key/regenerate endpoint (CVE-2026-40217) to escalate to PROXY_ADMIN master credentials. Nexqor take: If you run LiteLLM, check your version today. One gateway bug turns into every model and every key you route through it. (Source: The Hacker News)</description>
+  </item>
+  <item>
+    <title>One prompt injection, three coding agents leaking secrets</title>
+    <link>https://venturebeat.com/security/ai-agent-runtime-security-system-card-audit-comment-and-control-2026</link>
+    <guid isPermaLink="false">nexqor-2026-1577002721</guid>
+    <pubDate>Thu, 01 Jan 2026 09:00:00 +0000</pubDate>
+    <category>prompt-injection</category>
+    <description>The &apos;Comment and Control&apos; technique let a single injection hit Claude Code, Gemini CLI and GitHub Copilot, leaking secrets. No CNA has yet issued a CVE for a coding-agent prompt injection. Nexqor take: Your coding agent reads untrusted text all day: issues, PRs, comments. Keep secrets out of its environment and require approval for outbound calls. (Source: VentureBeat)</description>
+  </item>
+  <item>
+    <title>Study: no prompt-injection scenario consistently blocked on leading web agents</title>
+    <link>https://www.csoonline.com/article/4184455/prompt-injection-breaks-todays-ai-agents-study-warns.html</link>
+    <guid isPermaLink="false">nexqor-2026-1287614188</guid>
+    <pubDate>Thu, 01 Jan 2026 09:00:00 +0000</pubDate>
+    <category>prompt-injection</category>
+    <description>Researchers tested web agents built on frontier models and found that not a single attack scenario was consistently blocked across the systems tested, framing prompt injection as a system-level security problem. Nexqor take: Model-level defenses are not enough. Design agents so a successful injection can&apos;t reach anything valuable. (Source: CSO Online)</description>
+  </item>
+  <item>
+    <title>OWASP researcher: prompt injection remains an unsolved architectural problem</title>
+    <link>https://www.infosecurity-magazine.com/news/infosec-europe-prompt-injection/</link>
+    <guid isPermaLink="false">nexqor-2026-06-1397135705</guid>
+    <pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+    <category>prompt-injection</category>
+    <description>At Infosecurity Europe 2026, an OWASP contributor argued that injection risk grows as agents gain tool access, and urged defenders to limit what an injected agent can do rather than rely on prevention alone. Nexqor take: Exactly our rule: limit the blast radius, not just the input. (Source: Infosecurity Magazine)</description>
+  </item>
+  <item>
+    <title>Microsoft: when prompts become shells in AI agent frameworks</title>
+    <link>https://www.microsoft.com/en-us/security/blog/2026/05/07/prompts-become-shells-rce-vulnerabilities-ai-agent-frameworks/</link>
+    <guid isPermaLink="false">nexqor-2026-05-07-774920898</guid>
+    <pubDate>Thu, 07 May 2026 09:00:00 +0000</pubDate>
+    <category>agents</category>
+    <description>Microsoft described a path in Semantic Kernel where prompt injection could lead to host-level remote code execution, patched by removing the exposed tool. Nexqor take: Every tool you give an agent is an attack path. Fewer tools, narrower arguments, sandboxed execution. (Source: Microsoft Security Blog)</description>
+  </item>
+</channel>
+</rss>

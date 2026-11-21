@@ -3,8 +3,9 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI Security Glossary · Nexqor</title>
 <meta name="description" content="Plain-language glossary of AI security terms: prompt injection, LLMjacking, RAG poisoning, excessive agency and more.">
-<meta property="og:image" content="banner.png"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://nexqor.github.io/banner.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="Nexqor AI Security News" href="feed.xml">
 </head><body>
 <header class="page-hero"><div class="wrap">
  <div class="tag mono">// SPEAK THE LANGUAGE</div>
@@ -26,7 +27,13 @@ const G=[
 ['AI agent','A model that can take actions through tools (shell, browser, email, APIs), not just answer.','agency'],
 ['Excessive agency','Giving an agent more permissions or tools than its task needs.','agency'],
 ['Tool / function calling','The mechanism that lets a model trigger real actions. Each tool is an attack path.','agency'],
-['MCP','Model Context Protocol: a standard way to connect agents to tools and data. Untrusted MCP servers are a supply chain risk.','supply-chain'],
+['MCP','Model Context Protocol: a standard way to connect agents to tools and data. Untrusted MCP servers are a supply chain risk.','mcp'],
+['Tool poisoning','Hiding instructions in an MCP tool\'s description so the agent follows them while logs look normal.','mcp'],
+['Rug pull (MCP)','An MCP server that starts clean and later updates its tools with malicious behavior.','mcp'],
+['Deepfake','AI-generated voice, video or image impersonating a real person. No longer proof of identity.',''],
+['Autonomous ransomware','Ransomware run end-to-end by AI agents, from recon to encryption, at machine speed.',''],
+['Unicode tag characters','Invisible characters (U+E0000 block) that can hide instructions from humans but not from models.','indirect'],
+['Phishing-resistant MFA','Login factors like passkeys or FIDO2 keys that a fake site cannot capture and replay.',''],
 ['Data poisoning','Corrupting training or retrieval data to plant backdoors or false facts.','poisoning'],
 ['Backdoor / sleeper agent','Hidden model behavior that only activates on a specific trigger.','poisoning'],
 ['Model supply chain','Everything you download to run AI: weights, packages, inference servers. Any of it can carry malicious code.','supply-chain'],

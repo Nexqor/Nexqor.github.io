@@ -1,5 +1,104 @@
 [
   {
+    "date": "2026-11-20",
+    "title": "GAO: AI lets attackers scale phishing, deepfakes and multi-stage attacks",
+    "summary": "A U.S. Government Accountability Office technology assessment says AI helps attackers scale phishing and deepfakes, and flags agentic AI that can run several attack stages with little human input. It also describes defenders using machine learning to spot phishing and isolate ransomware early.",
+    "take": "Official confirmation of what SOCs already see: the cost of a convincing attack is collapsing. Budget for detection that scales the same way.",
+    "category": "policy",
+    "severity": "medium",
+    "source": "GAO",
+    "url": "https://www.gao.gov/assets/gao-27-108458.pdf",
+    "play": ""
+  },
+  {
+    "date": "2026-11-20",
+    "title": "Deepfake attacks up 165% in 2026, mostly aimed at finance",
+    "summary": "Entrust's identity fraud report, covered on November 20, says deepfake attacks rose 165% year over year in 2026, with financial services accounting for 94% of detected deepfakes.",
+    "take": "Voice and video are no longer proof of identity. Move payment approvals to out-of-band checks that a deepfake can't pass.",
+    "category": "deepfake",
+    "severity": "high",
+    "source": "SecurityBrief Asia",
+    "url": "https://securitybrief.asia/story/deepfake-identity-fraud-surges-as-criminals-go-professional",
+    "play": ""
+  },
+  {
+    "date": "2026-11-19",
+    "title": "Coinbase blocks $4.7M sent to a deepfake Elon Musk livestream",
+    "summary": "Coinbase blocked $4.7 million in cryptocurrency transfers linked to an AI-generated Elon Musk deepfake livestream. Its fraud systems stopped 91% of the attempted transfers.",
+    "take": "Deepfake scams now run live, at scale. Platform-side fraud detection caught most of it, but 9% still got through.",
+    "category": "deepfake",
+    "severity": "high",
+    "source": "SC Media",
+    "url": "https://www.scworld.com/brief/coinbase-blocks-4-7-million-in-cryptocurrency-transfers-linked-to-deepfake-scam",
+    "play": ""
+  },
+  {
+    "date": "2026-11-19",
+    "title": "INTERPOL launches deepfake scam awareness campaign",
+    "summary": "INTERPOL started a public campaign on AI-generated scams, using short AI-made videos to show how deepfakes deceive people.",
+    "take": "Use it in your own awareness training: showing people a deepfake beats describing one.",
+    "category": "deepfake",
+    "severity": "low",
+    "source": "SC Media",
+    "url": "https://www.scworld.com/perspective/interpol-launches-deepfake-scam-awareness-campaign-as-ai-impersonation-risks-grow",
+    "play": ""
+  },
+  {
+    "date": "2026-11-18",
+    "title": "New AI phishing kit writes a unique lure for every victim",
+    "summary": "A phishing kit dubbed TheMailer uses large language models to write a unique email for each recipient and reportedly rewrites lures until they pass spam filters.",
+    "take": "Signature and template matching won't catch one-of-a-kind emails. Lean on sender authentication, link analysis and phishing-resistant MFA.",
+    "category": "phishing",
+    "severity": "high",
+    "source": "SC Media",
+    "url": "https://scworld.com/brief/new-ai-powered-phishing-kit-automates-malicious-email-campaigns",
+    "play": ""
+  },
+  {
+    "date": "2026-11",
+    "title": "Copilot in Visual Studio: filename trick leads to agent RCE",
+    "summary": "A reported flaw let Microsoft's Copilot agent in Visual Studio and SSMS reach its own MCP configuration file through a filename trick, enabling command execution. Microsoft rated it Important and patched it.",
+    "take": "An agent that can edit its own config can grant itself new powers. Config files must be outside the agent's write scope.",
+    "category": "agents",
+    "severity": "high",
+    "source": "Adversa AI",
+    "url": "https://adversa.ai/blog/top-ai-coding-agent-security-resources-november-2026/",
+    "play": "agency"
+  },
+  {
+    "date": "2026-10",
+    "title": "Microsoft: fully autonomous ransomware has hit real organizations",
+    "summary": "Microsoft's Digital Defense Report 2026 describes JADEPUFFER, a ransomware attack it calls fully autonomous, which hit real organizations in July 2026. It also reports phishing rising from 7% to 23% of intrusions.",
+    "take": "Attack speed is now machine speed. Containment has to be automated too: isolate first, investigate second.",
+    "category": "ransomware",
+    "severity": "critical",
+    "source": "Tech Times",
+    "url": "https://www.techtimes.com/articles/328467/20261002/microsoft-2026-security-report-autonomous-ransomware-has-hacked-real-organizations.htm",
+    "play": ""
+  },
+  {
+    "date": "2026-07",
+    "title": "MCP tool poisoning: hidden instructions in tool descriptions exfiltrate data",
+    "summary": "Cloud Security Alliance research notes describe how poisoned MCP tool descriptions can steer agents into exfiltrating data, and how IDEs that auto-load workspace MCP configs widen the attack surface.",
+    "take": "Approving an MCP server by name is not enough. Review and pin what its tools actually say, and re-check on every update.",
+    "category": "mcp",
+    "severity": "critical",
+    "source": "Cloud Security Alliance",
+    "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-mcp-tool-description-poisoning-20260711-cs/",
+    "play": "mcp"
+  },
+  {
+    "date": "2026",
+    "title": "OX Security: systemic command-execution risk in MCP's STDIO transport",
+    "summary": "OX Security argues that arbitrary command execution over the STDIO transport is default behavior across official MCP SDKs, calling it a systemic AI supply chain risk.",
+    "take": "Every local MCP server you add is code you run. Treat MCP servers like dependencies: vet, pin, sandbox.",
+    "category": "mcp",
+    "severity": "high",
+    "source": "OX Security",
+    "url": "https://www.ox.security/blog/the-mother-of-all-ai-supply-chains-critical-systemic-vulnerability-at-the-core-of-the-mcp/",
+    "play": "mcp"
+  },
+  {
     "date": "2026-11-16",
     "title": "AI agents caught hunting AI provider keys across exposed apps",
     "summary": "Amazon reported suspected automated agents scanning for AI provider API keys in exposed LLM gateways and AI app builders, including LiteLLM, Dify, Langflow, Open WebUI and Ollama. Reported theft is not yet verified.",

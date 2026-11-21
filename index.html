@@ -7,11 +7,14 @@
 <meta name="description" content="Nexqor breaks down AI hacks, data leaks and patches. Daily, in plain language.">
 <meta property="og:title" content="Nexqor — AI Is the New Attack Surface">
 <meta property="og:description" content="Hacks, leaks and patches, broken down daily.">
-<meta property="og:image" content="banner.png">
+<meta property="og:image" content="https://nexqor.github.io/banner.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@whyNexqor">
 <link rel="icon" href="avatar.jpg">
+<link rel="canonical" href="https://nexqor.github.io/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Nexqor","url":"https://nexqor.github.io/","description":"AI security news, attack playbook, free prompt injection scanner and agent security checklist.","publisher":{"@type":"Organization","name":"Nexqor","logo":"https://nexqor.github.io/avatar.jpg","sameAs":["https://x.com/whyNexqor","https://github.com/Nexqor"]}}</script>
 <link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="Nexqor AI Security News" href="feed.xml">
 </head>
 <body>
 
@@ -65,11 +68,29 @@ nexqor — cyber analyst, writer, signal over noise
  </div>
 </div>
 
+<section id="threat" style="padding:70px 0 0"><div class="wrap">
+ <div class="threat reveal">
+  <div>
+   <div class="tag mono">// AI THREAT LEVEL · BASED ON TRACKED INCIDENTS</div>
+   <div class="lvl" id="lvl">CALCULATING…</div>
+   <div class="bars" id="bars"></div>
+  </div>
+  <div class="tstats" id="tstats"></div>
+ </div>
+</div></section>
+
 <section id="latest"><div class="wrap">
  <div class="tag mono">00 // LATEST THREATS</div>
  <h2 class="h2">WHAT JUST HAPPENED</h2>
  <div class="news" id="latest-news"></div>
  <p style="margin-top:26px"><a class="btn" href="news.html">All AI security news →</a></p>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+ <a class="cta-band reveal" href="checklist.html">
+  <div><div class="tag mono">// FREE TOOL · 24 CHECKS</div><h3>IS YOUR AI AGENT READY FOR 2026 ATTACKS?</h3><p>Score your LLM apps, agents and MCP setup in 3 minutes. No sign-up.</p></div>
+  <span class="btn solid">Get my score →</span>
+ </a>
 </div></section>
 
 <section id="cover" style="padding-top:0"><div class="wrap">
@@ -133,6 +154,18 @@ nexqor — cyber analyst, writer, signal over noise
 </div></section>
 
 <script src="layout.js"></script>
-<script>nxNews(document.getElementById('latest-news'),{limit:3})</script>
+<script>
+nxNews(document.getElementById('latest-news'),{limit:3});
+fetch('news.json',{cache:'no-store'}).then(r=>r.json()).then(items=>{
+ const w={critical:4,high:3,medium:2,low:1};
+ const recent=items.filter(i=>i.date>='2026-11');
+ const score=recent.reduce((s,i)=>s+w[i.severity],0);
+ const lv=score>=30?['SEVERE','#ff2f2f',5]:score>=20?['HIGH','#ff5a2f',4]:score>=12?['ELEVATED','#ffb020',3]:score>=6?['GUARDED','#3fe3ff',2]:['LOW','#7dff9a',1];
+ const el=document.getElementById('lvl');el.textContent=lv[0];el.style.color=lv[1];el.style.textShadow='0 0 30px '+lv[1];
+ document.getElementById('bars').innerHTML=[1,2,3,4,5].map(n=>`<i style="background:${n<=lv[2]?lv[1]:'#2a1010'}"></i>`).join('');
+ const cnt=s=>recent.filter(i=>i.severity===s).length;const cats=new Set(recent.map(i=>i.category)).size;
+ document.getElementById('tstats').innerHTML=[[recent.length,'incidents this month'],[cnt('critical'),'critical'],[cnt('high'),'high'],[cats,'attack categories']].map(x=>`<div class="stat"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+}).catch(()=>{document.getElementById('lvl').textContent='SEE NEWS'});
+</script>
 </body>
 </html>

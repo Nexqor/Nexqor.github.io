@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agent Security Checklist · Nexqor</title>
+<meta name="description" content="Free 24-point AI agent security checklist with a live score. Check your LLM apps, agents and MCP setup against real 2026 attacks.">
+<meta property="og:title" content="AI Agent Security Checklist · Nexqor"><meta property="og:description" content="24 checks. One score. Is your AI agent ready for 2026 attacks?">
+<meta property="og:image" content="https://nexqor.github.io/banner.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@whyNexqor">
+<link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="Nexqor AI Security News" href="feed.xml">
+<style>
+.ck-wrap{display:grid;grid-template-columns:1fr 300px;gap:30px;align-items:start}
+.score{position:sticky;top:90px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:26px;text-align:center}
+.score svg{width:180px;height:180px}
+.score .v{font-family:Impact,"Arial Black",sans-serif;font-size:54px;fill:#fff}
+.score .grade{font:700 18px Consolas,monospace;margin:6px 0 14px}
+.score p{color:var(--muted);font-size:14px;margin:0 0 16px}
+.grp{margin-bottom:34px}
+.grp h3{font-size:22px;margin:0 0 4px}
+.grp .sub{color:var(--muted);font:13px Consolas,monospace;margin-bottom:14px}
+.ck{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:.15s}
+.ck:hover{border-color:var(--red)}
+.ck input{appearance:none;flex:none;width:22px;height:22px;border:2px solid var(--red);border-radius:4px;margin:2px 0 0;cursor:pointer;display:grid;place-content:center}
+.ck input:checked{background:var(--red)}
+.ck input:checked:after{content:"✓";color:#fff;font-weight:700;font-size:14px}
+.ck b{display:block}.ck span{color:var(--muted);font-size:15px}
+.ck .w{margin-left:auto;font:12px Consolas,monospace;color:var(--red);white-space:nowrap}
+.ck.done{border-color:rgba(125,255,154,.35)}
+button.btn{background:transparent;cursor:pointer;font:inherit;font-weight:600;width:100%;margin-top:8px}
+@media (max-width:860px){.ck-wrap{grid-template-columns:1fr}.score{position:static}}
+@media print{nav,footer,.page-hero .lead,.score button{display:none}body{background:#fff;color:#000}.ck{border:1px solid #999;background:#fff}}
+</style>
+</head><body>
+<header class="page-hero"><div class="wrap">
+ <div class="tag mono">// FREE · 24 CHECKS · LIVE SCORE</div>
+ <h1>AI AGENT SECURITY <span>CHECKLIST.</span></h1>
+ <p class="lead">Built from the attacks we track every day. Tick what you already have; your score and gaps update instantly. Progress is saved in your browser only.</p>
+</div></header>
+<section style="padding-top:50px"><div class="wrap ck-wrap">
+ <div id="groups"></div>
+ <aside class="score">
+  <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#2a1010" stroke-width="10"/><circle id="arc" cx="60" cy="60" r="52" fill="none" stroke="#ff2f2f" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 400" transform="rotate(-90 60 60)" style="transition:.4s"/><text id="pct" class="v" x="60" y="72" text-anchor="middle">0</text></svg>
+  <div class="grade mono" id="grade">EXPOSED</div>
+  <p id="hint">Start with the CRITICAL items. They map to the attacks we see most.</p>
+  <button class="btn" onclick="window.print()">Print / save as PDF</button>
+  <button class="btn" id="reset">Reset</button>
+  <a class="btn solid" style="display:block;margin-top:8px" id="share" target="_blank" rel="noopener">Share my score on 𝕏</a>
+ </aside>
+</div></section>
+<script src="layout.js"></script>
+<script>
+const C=[
+ ['Identity & access','Who and what can the agent act as?',[
+  ['Each agent has its own identity','Its actions are distinguishable from human users in logs.',3,'agency'],
+  ['Read-only by default','Write, delete and send permissions are granted per task, then revoked.',3,'agency'],
+  ['No production credentials in agent environments','No .env, SSH keys or cloud keys reachable by the agent.',3,'indirect'],
+  ['Scoped, short-lived API keys','Every AI key has a spend limit and an expiry.',2,'llmjacking']]],
+ ['Untrusted input','Everything the model reads can steer it.',[
+  ['Untrusted content and powerful tools never share a session','An agent that browses or reads email cannot also push code or move money.',3,'indirect'],
+  ['Retrieved content is scanned before use','Hidden text, injection phrases and invisible Unicode are stripped or flagged.',2,'indirect'],
+  ['RAG retrieval respects document permissions','Users only get answers from documents they can already open.',3,'leakage'],
+  ['No secrets in system prompts','Assume the system prompt will leak.',2,'direct']]],
+ ['Actions & output','Limit what a hijacked agent can do.',[
+  ['Human approval for irreversible actions','Send, pay, delete, deploy and external calls need a click from a person.',3,'agency'],
+  ['Egress allowlist for agent HTTP tools','The agent can only reach approved domains.',3,'indirect'],
+  ['External images and links are not auto-loaded','Blocks Markdown-image data exfiltration.',2,'leakage'],
+  ['Output DLP','Responses are checked for keys, tokens and personal data.',2,'leakage']]],
+ ['MCP & supply chain','Every tool and model you add is code you run.',[
+  ['MCP servers are allowlisted org-wide','No ad-hoc installs on machines with production access.',3,'mcp'],
+  ['MCP versions pinned, descriptions reviewed on update','Catches tool poisoning and rug pulls.',2,'mcp'],
+  ['Workspace MCP configs are not auto-loaded','Opening a repo cannot add tools to your agent.',2,'mcp'],
+  ['Models loaded as safetensors only','No untrusted pickle; weights_only=True where unavoidable.',3,'supply-chain']]],
+ ['Infrastructure','AI gateways and inference servers are internet software.',[
+  ['AI gateways and admin UIs are not public','LiteLLM, Dify, Ollama, Open WebUI and similar sit behind auth and IP allowlists.',3,'llmjacking'],
+  ['Inference engines and gateways patched within days','Subscribed to their security advisories.',2,'supply-chain'],
+  ['Billing alerts per key and per hour','Catches LLMjacking before the bill does.',2,'llmjacking'],
+  ['Agent sandbox has no host mounts','Containers or VMs, no access to the developer\'s home directory.',2,'agency']]],
+ ['Detect & respond','Assume one injection will land.',[
+  ['Full tool-call chains are logged','Not just the final answer: every call, argument and result.',2,'agency'],
+  ['Kill switch for agent tokens','One place to revoke every token an agent holds.',2,'agency'],
+  ['Red team before each release','garak, promptfoo or PyRIT run on every prompt or model change.',2,'jailbreak'],
+  ['Deepfake-proof approvals','Payments and access changes are confirmed out of band, never by voice or video alone.',2,'']]]
+];
+const KEY='nx-checklist-v1';let state={};try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const total=C.flatMap(g=>g[2]).reduce((s,i)=>s+i[2],0);
+document.getElementById('groups').innerHTML=C.map((g,gi)=>`<div class="grp reveal"><h3>${g[0]}</h3><div class="sub">${g[1]}</div>${g[2].map((i,ii)=>{const id=gi+'-'+ii;return `<label class="ck" data-id="${id}"><input type="checkbox" data-w="${i[2]}" ${state[id]?'checked':''}><div><b>${i[0]}</b><span>${i[1]}${i[3]?` <a href="playbook.html#${i[3]}" style="color:var(--cyan)">why →</a>`:''}</span></div><div class="w">${i[2]===3?'CRITICAL':'HIGH'}</div></label>`}).join('')}</div>`).join('');
+function upd(){let got=0;document.querySelectorAll('.ck').forEach(l=>{const c=l.querySelector('input');l.classList.toggle('done',c.checked);state[l.dataset.id]=c.checked;if(c.checked)got+=+c.dataset.w});
+ try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}
+ const p=Math.round(got/total*100);document.getElementById('pct').textContent=p;
+ document.getElementById('arc').setAttribute('stroke-dasharray',(p/100*326.7)+' 400');
+ const [g,col,h]=p>=85?['HARDENED','#7dff9a','Strong posture. Keep red teaming every release.']:p>=60?['DEFENDED','#3fe3ff','Good base. Close the remaining CRITICAL gaps.']:p>=30?['AT RISK','#ffb020','Several attack paths are open. Prioritize CRITICAL items.']:['EXPOSED','#ff2f2f','Start with the CRITICAL items. They map to the attacks we see most.'];
+ const ge=document.getElementById('grade');ge.textContent=g;ge.style.color=col;document.getElementById('hint').textContent=h;
+ document.getElementById('share').href='https://x.com/intent/tweet?text='+encodeURIComponent(`My AI agent security score: ${p}/100 (${g}). Check yours with the free @whyNexqor checklist:`)+'&url='+encodeURIComponent('https://nexqor.github.io/checklist.html');}
+document.getElementById('groups').addEventListener('change',upd);
+document.getElementById('reset').onclick=()=>{document.querySelectorAll('.ck input').forEach(c=>c.checked=false);upd()};
+upd();nxReveal();
+</script>
+</body></html>

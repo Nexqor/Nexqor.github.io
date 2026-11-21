@@ -3,13 +3,14 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI Attack Playbook · Nexqor</title>
 <meta name="description" content="Eight attacks on AI systems explained: how they work, real examples, detection and defense.">
-<meta property="og:image" content="banner.png"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://nexqor.github.io/banner.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="avatar.jpg"><link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="Nexqor AI Security News" href="feed.xml">
 </head><body>
 <header class="page-hero"><div class="wrap">
  <div class="tag mono">// ATTACK → DETECT → DEFEND</div>
  <h1>AI ATTACK <span>PLAYBOOK.</span></h1>
- <p class="lead">Eight ways AI systems get broken, and how defenders stop each one. Full versions with sources live on <a href="https://github.com/Nexqor/ai-attack-playbook" style="color:var(--red)">GitHub</a>.</p>
+ <p class="lead">Nine ways AI systems get broken, and how defenders stop each one. Full versions with sources live on <a href="https://github.com/Nexqor/ai-attack-playbook" style="color:var(--red)">GitHub</a>.</p>
  <div class="term mono" style="margin-top:30px"><pre><span class="r">RULE #1</span>  Treat the model as an untrusted user.
          Anything it reads can steer it. Anything it can do, an attacker can make it do.</pre></div>
 </div></header>
@@ -40,7 +41,10 @@ const P=[
   ['Use safetensors; weights_only=True','Pin and verify hashes','Patch inference engines fast','Scan artifacts with ModelScan','Isolate serving containers'],'07-model-supply-chain.md'],
  ['llmjacking','08','LLMjacking','API keys & AI gateways · High · LLM10','Attackers steal access to your LLMs and resell it. You get the bill, and they may get your data and weights.',
   ['Scan for exposed keys and gateways','Exploit weak gateways or CVEs for admin keys','Resell access through illicit proxies','Victim pays; data may be exfiltrated'],
-  ['Never expose gateways or admin UIs publicly','Patch gateways quickly','Scoped, short-lived keys with spend limits','Billing alerts per key','Rotate on any suspicion'],'08-llmjacking.md']
+  ['Never expose gateways or admin UIs publicly','Patch gateways quickly','Scoped, short-lived keys with spend limits','Billing alerts per key','Rotate on any suspicion'],'08-llmjacking.md'],
+ ['mcp','09','MCP Tool Poisoning','MCP servers & agent tools · Critical · LLM03 / LLM06','A malicious or compromised MCP server hides instructions in its tool descriptions. The agent reads them as trusted context and quietly follows them.',
+  ['User installs an MCP server and approves it by name','Tool description contains hidden instructions','Agent reads the description on every call','Agent leaks files or calls other tools while logs look normal'],
+  ['Review the full tool descriptions, not just the server name','Pin MCP server versions and re-review on update','Run local MCP servers sandboxed, without secrets','Disable auto-loading of workspace MCP configs','Allowlist MCP servers org-wide'],'09-mcp-tool-poisoning.md']
 ];
 document.getElementById('plays').innerHTML=P.map(p=>`<article class="card play reveal" id="${p[0]}">
  <div class="num">${p[1]}</div>
