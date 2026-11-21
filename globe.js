@@ -39,10 +39,10 @@
     new THREE.MeshBasicMaterial({ color: 0x0d0207 })));
 
   // ---- fresnel atmosphere (back-side additive glow)
-  const atmo = new THREE.Mesh(new THREE.SphereGeometry(R * 1.18, 64, 64), new THREE.ShaderMaterial({
+  const atmo = new THREE.Mesh(new THREE.SphereGeometry(R * 1.12, 64, 64), new THREE.ShaderMaterial({
     uniforms: { c: { value: CHERRY } },
     vertexShader: 'varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
-    fragmentShader: 'uniform vec3 c; varying vec3 vN; void main(){ float i = pow(0.72 - dot(vN, vec3(0.,0.,1.)), 3.0); gl_FragColor = vec4(c, 1.0) * i * 1.6; }',
+    fragmentShader: 'uniform vec3 c; varying vec3 vN; void main(){ float i = pow(max(0.0, 0.62 - dot(vN, vec3(0.,0.,1.))), 3.2); gl_FragColor = vec4(c, 1.0) * i * 0.85; }',
     side: THREE.BackSide, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false
   }));
   scene.add(atmo);
